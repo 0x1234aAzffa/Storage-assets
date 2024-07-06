@@ -1,72 +1,93 @@
-# ################################################
-# DriveBackupV2   -   by Max Maeder (MaxTheGinus)
-# ################################################
+# Chỉ bật khi có yêu cầu từ staff Thesieutoc
+debug: true
 
-# DOCUMENTATION HAS MOVED
-# Now available online at: https://github.com/MaxMaeder/DriveBackupV2/wiki
+#Nhập API để sử dụng plugin
+TheSieuToc-API:
+  key: 'C7B36A9B440EF547CBF75597D698A73D'
+  secret: '475919997159CC11757576EDB053D6BE'
 
-version: 2
+  #Nếu bạn là người dùng bình thường, vui lòng không chỉnh sửa cái này
+  custom:
+    enable: false
+    callback: true
+    url: '' #APIkey={0} APIsecret={1} mathe={2} seri={3} type={4} menhgia={5}
 
-delay: 60
-backup-thread-priority: 1
-keep-count: 20
-local-keep-count: 0
-zip-compression: 1
-backups-require-players: true
-disable-saving-during-backups: true
+#Nếu không sử dụng MySQL thì dữ liệu sẽ được lưu trên file
+#Lưu ý MySQL chỉ hoạt động sau khi khởi động lại server
+mysql:
+  enable: false
+  host: localhost
+  port: 3306
+  user: root
+  password: root
+  database: napthe
 
-scheduled-backups: true
-schedule-timezone: +07:00
-backup-schedule-list:
-- days: 
-  - "everyday"
-  time: "00:00"
+# Thời gian mà placeholder cập nhật, tính theo tick (20 tick = 1s)
+placeholder_update: 300
 
-backup-list:
-- path: .
-  format: "Backup-server-%FORMAT.zip"
-  create: true
+#Bật tính năng nạp thẻ nhanh bằng lệnh
+#Ví dụ: /napthe Viettel 10000 seri pin
+fastcmd: true
 
-local-save-directory: backups
-remote-save-directory: backups
+#Chấp nhận nạp các loại thẻ được liệt kê bên dưới, nếu bạn không muốn member nạp thẻ nào thì xóa cái đó đi
+card:
+  enable:
+    - Viettel
+    - Vinaphone
+    - Vietnamobile
+    - Mobifone
+    - Gate
+    - Garena
+    - Vcoin
+    - Zing
 
-googledrive:
-  enabled: true
-  shared-drive-id: ''
-onedrive:
-  enabled: false
-dropbox:
-  enabled: false
-webdav:
-  enabled: false
-  hostname: http://example.com/directory
-  username: Username
-  password: Password
-nextcloud:
-  enabled: false
-  hostname: https://example.com/remote.php/dav/files/user/
-  username: Username
-  password: Password
-  chunk-size: 20000000
-ftp:
-  enabled: false
-  hostname: ftp.example.com
-  port: 21
-  sftp: false
-  ftps: false
-  username: Username
-  password: Password
+  #thực hiện các lệnh khi nạp thành công các thẻ có mệnh giá tương đương
+  #
+  #     để trống sẽ thực thi lệnh bằng người chơi với các quyền có sẵn
+  #     [op] sẽ thực thi lệnh bằng người chơi nhưng có OP
+  #     [console] sẽ thực thi lệnh bằng console (server)
+  command:
+    10000:
+      - 'console:eco give {player} 10000'
+      - 'op:broadcast {player} vừa ủng hộ 10k!'
+      - 'me vừa ủng hộ server 10k!'
+    20000:
+      - 'console:eco give {player} 20000'
+      - 'op:broadcast {player} vừa ủng hộ 20k!'
+      - 'me vừa ủng hộ server 20k!'
+    30000:
+      - 'console:eco give {player} 30000'
+      - 'op:broadcast {player} vừa ủng hộ 30k!'
+      - 'me vừa ủng hộ server 30k!'
+    50000:
+      - 'console:eco give {player} 50000'
+      - 'console:crate givekey {player} Custom_Donate 1'
+      - 'op:broadcast {player} vừa ủng hộ 50k!'
+      - 'me vừa ủng hộ server 50k!'
+    100000:
+      - 'console:eco give {player} 100000'
+      - 'console:crate givekey {player} Custom_Donate 2'      
+      - 'op:broadcast {player} vừa ủng hộ 100k!'
+      - 'me vừa ủng hộ server 100k!'
+    200000:
+      - 'console:eco give {player} 200000'
+      - 'console:crate givekey {player} Custom_Donate 4'      
+      - 'op:broadcast {player} vừa ủng hộ 200k!'
+      - 'me vừa ủng hộ server 200k!'
+    300000:
+      - 'console:eco give {player} 300000'
+      - 'console:crate givekey {player} Custom_Donate 6'      
+      - 'op:broadcast {player} vừa ủng hộ 300k!'
+      - 'me vừa ủng hộ server 300k!'
+    500000:
+      - 'console:eco give {player} 500000'
+      - 'console:crate givekey {player} Custom_Donate 10'          
+      - 'op:broadcast {player} vừa ủng hộ 500k!'
+      - 'me vừa ủng hộ server 500k!'
+    1000000:
+      - 'console:eco give {player} 1000000'
+      - 'console:crate givekey {player} Custom_Donate 20'           
+      - 'op:broadcast {player} vừa ủng hộ 1 triệu!'
+      - 'me vừa ủng hộ server 1tr!'
 
-messages:
-  send-in-chat: true
-  prefix: '&6[&4DriveBackupV2&6] '
-  default-color: '&3'
 
-advanced:
-  metrics: true
-  update-check: true
-  suppress-errors: false
-  debug: false
-  date-language: en
-  date-timezone: +07:00
-  ftp-file-separator: /
